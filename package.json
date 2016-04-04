@@ -21,19 +21,22 @@
    "dependencies": {
       "async": "~0.7.0",
       "clean-css": "3.3.7",
+      "compression": "^1.6.1",
+      "connect": "^3.4.1",
+      "connect-livereload": "^0.5.4",
       "connect-xcors": "~0.5.2",
       "findup": "~0.1.5",
       "glob": "~3.1.21",
       "grunt-contrib-clean": "~0.6.0",
       "grunt-contrib-compass": "~1.0.1",
       "grunt-contrib-concat": "~0.5.1",
-      "grunt-contrib-connect": "~0.7.1",
       "grunt-contrib-copy": "~0.8.0",
       "grunt-contrib-cssmin": "~0.12.3",
       "grunt-contrib-jshint": "~0.10.0",
       "grunt-contrib-requirejs": "~0.4.3",
       "grunt-contrib-watch": "~0.6.1",
       "grunt-karma": "LaxarJS/grunt-karma#8075438dc412358a5707245e14a3bfaf7ae97963",
+      "http2": "^3.3.2",
       "jjv": "~1.0.0",
       "jjve": "~0.5.0",
       "jsonlint": "^1.6.2",
@@ -46,8 +49,11 @@
       "laxar-dox": "~1.0.0",
       "lodash": "~2.4.1",
       "minimatch": "~0.2.14",
+      "morgan": "^1.7.0",
+      "portscanner": "^1.0.0",
       "q": "~1.0.0",
-      "requirejs": "2.1.19"
+      "requirejs": "2.1.19",
+      "serve-index": "^1.7.3"
    },
    "peerDependencies": {
       "grunt": ">=0.4"

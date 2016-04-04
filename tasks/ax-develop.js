@@ -8,13 +8,13 @@ module.exports = function( grunt ) {
 
    grunt.registerTask( 'laxar-develop', [
       'laxar-build',
-      'connect:laxar-develop',
+      'laxar-connect:laxar-develop',
       'watch'
    ] );
 
    grunt.registerTask( 'laxar-develop-no-watch', [
       'laxar-build',
-      'connect:laxar-develop:keepalive'
+      'laxar-connect:laxar-develop:keepalive'
    ] );
 
 };

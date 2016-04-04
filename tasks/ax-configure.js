@@ -50,6 +50,11 @@ module.exports = function( grunt ) {
             test: 9000,
             livereload: 35729
          },
+         server: {
+            compression: false,
+            protocol: 'http',
+            debug: false
+         },
          flows: [],
          userTasks: {
             'build-flow': [],
@@ -130,9 +135,12 @@ module.exports = function( grunt ) {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    function configureOtherTasks( options ) {
-      grunt.config( 'connect.laxar-develop.options.port', options.ports.develop );
-      grunt.config( 'connect.laxar-test.options.port', options.ports.test );
-      grunt.config( 'connect.options.livereload', options.ports.livereload );
+      grunt.config( 'laxar-connect.laxar-develop.options.port', options.ports.develop );
+      grunt.config( 'laxar-connect.laxar-test.options.port', options.ports.test );
+      grunt.config( 'laxar-connect.options.livereload', options.ports.livereload );
+      grunt.config( 'laxar-connect.options.compression', options.server.compression );
+      grunt.config( 'laxar-connect.options.debug', options.server.debug );
+      grunt.config( 'laxar-connect.options.protocol', options.server.protocol );
       grunt.config( 'watch.options.livereload', options.ports.livereload );
       grunt.config( 'karma.options.proxies./base', 'http://localhost:' + options.ports.test );
       grunt.config( 'laxar-test-widget.options.testDirectory', options.testDirectory );

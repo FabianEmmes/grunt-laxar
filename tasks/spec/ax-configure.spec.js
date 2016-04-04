@@ -95,11 +95,15 @@ describe( 'the laxar-configure task', function() {
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       [
-         'connect.laxar-develop.options.port',
-         'connect.laxar-test.options.port',
-         'connect.options.livereload',
+         'laxar-connect.laxar-develop.options.port',
+         'laxar-connect.laxar-test.options.port',
+         'laxar-connect.options.compression',
+         'laxar-connect.options.debug',
+         'laxar-connect.options.protocol',
+         'laxar-connect.options.livereload',
          'watch.options.livereload',
-         'karma.options.proxies./base'
+         'karma.options.proxies./base',
+         'laxar-test-widget.options.testDirectory'
       ].forEach( function( key ) {
          it( 'configures the ' + key + ' at runtime', function() {
             expect( configSpy.calls.filter( configures( key ) ) ).not.to.be.empty();

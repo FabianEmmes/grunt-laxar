@@ -131,7 +131,33 @@ This should be different from the development port so that testing does not inte
 
 #### options.ports.livereload
 
-Type: Number
+Type: `Number` or `Boolean`
 Default: 35729
 
-The port that is used by the *watch* to implement the live-reload channel.
+The port that is used by the *watch* to implement the live-reload channel. If `false`, disable live-reload.
+
+
+### options.server.compression
+
+Type: `Boolean`
+Default value: `false`
+
+Use use compressed transfer encoding in HTTP response. Note that currently this
+can't be activated if http2 is used.
+
+
+### options.server.debug
+
+Type: `Boolean`
+Default value: `false`
+
+Write debug infos to `stdout`.
+
+
+### options.protocol.debug
+
+Type: `String` (`http`, `https`, or `http2`)
+Default value: `http`
+
+Use `http`, `https` or `http2` (with `https` fallback) protocol. Currently
+compression can't be used with `http2`.
