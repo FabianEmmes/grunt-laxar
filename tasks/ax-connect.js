@@ -95,6 +95,13 @@ module.exports = function( grunt ) {
 
       var middlewares = [];
 
+      // Depending on the request, connect/nodejs write the http header and
+      // body separately. Set TCP_NODELAY to avoid delays in such situations.
+      middlewares.push( function( req, res, next ) {
+         req.socket.setNoDelay( true );
+         next();
+      } );
+
       console.log( 'debug', options.debug );
       // If --debug was specified, enable logging.
       if( grunt.option( 'debug' ) || options.debug === true ) {
