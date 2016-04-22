@@ -13,6 +13,8 @@ module.exports = function( grunt ) {
    var q = require( 'q' );
    var path = require( '../lib/path-platform/path' ).posix;
 
+   var condenseJsonSchemaRoot = require( '../lib/condense_json_schema' );
+
    var readFile = q.nfbind( fs.readFile );
 
    var helpers = require( './lib/task_helpers' )( grunt, TASK );
@@ -35,7 +37,8 @@ module.exports = function( grunt ) {
       var flowId = task.nameArgs.split( ':' )[ 1 ];
       var flowsDirectory = task.files[ 0 ].src[ 0 ];
       var options = task.options( {
-         embed: true
+         embed: true,
+         condenseSchemata: true
       } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +68,7 @@ module.exports = function( grunt ) {
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       function normalize( listing ) {
-         if( typeof( listing ) !== 'object' ) {
+         if( typeof listing !== 'object' ) {
             return listing;
          }
          var keys = Object.keys( listing );
@@ -143,21 +146,52 @@ module.exports = function( grunt ) {
                return;
             }
             var child = node[ segment ] = ( node[ segment ] || {} );
-            insertRecursively( child, segments, value  );
+            insertRecursively( child, segments, value );
          }
 
       }
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      function condenseJson( contents ) {
+         if( Array.isArray( contents ) ) {
+            return contents.map( condenseJson );
+         } else if( typeof contents === 'object' ) {
+            if( contents.hasOwnProperty( '$schema' ) ) {
+               return condenseJsonSchemaRoot( contents );
+            }
+            const rv = {};
+            Object.keys( contents ).forEach( function( key ) {
+               rv[key] = condenseJson( contents[key] );
+            } );
+            return rv;
+         } else {
+            return contents;
+         }
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       function preprocess( filePath, contents ) {
          var type = path.extname( filePath );
+         var basename = path.basename( filePath );
          if( type === '.json' ) {
-            // Eliminate whitespace by re-serializing:
-            return JSON.stringify( JSON.parse( contents ) );
+            // Eliminate whitespace and "condense" json schemata
+            try {
+               let data = JSON.parse( contents );
+               if( opt.condenseJson ) {
+                  data = condenseJson( data );
+               }
+               return JSON.stringify( data );
+            } catch( e ) {
+               grunt.fail.warn( filePath );
+               grunt.fail.warn( e );
+               return JSON.stringify( JSON.parse( contents ) );
+            }
          }
          if( type === '.html' ) {
             // Eliminate (some) whitespace:
+            // TODO Bug? This removes significant whitespace from <pre> tags!
             return contents.replace( /[\n\r ]+/g, ' ' );
          }
          return contents;
