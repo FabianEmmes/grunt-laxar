@@ -38,7 +38,7 @@ module.exports = function( grunt ) {
       var flowsDirectory = task.files[ 0 ].src[ 0 ];
       var options = task.options( {
          embed: true,
-         condenseSchemata: true
+         condenseJsonSchemata: true
       } );
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ module.exports = function( grunt ) {
             // Eliminate whitespace and "condense" json schemata
             try {
                var data = JSON.parse( contents );
-               if( opt.condenseJson ) {
+               if( options.condenseJsonSchemata ) {
                   data = condenseJson( data );
                }
                return JSON.stringify( data );

@@ -60,6 +60,7 @@ module.exports = function( grunt ) {
 
       // Apply generated configuration:
       grunt.config( 'laxar-test-widget-internal.options.testDirectory', options.testDirectory );
+      grunt.config( 'laxar-test-widget-internal.options.condenseJsonSchemata', options.condenseJsonSchemata );
       widgets.forEach( function( target ) {
          grunt.config( 'laxar-test-widget-internal.' + target, {} );
       } );
