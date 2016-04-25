@@ -160,7 +160,7 @@ module.exports = function( grunt ) {
             if( contents.hasOwnProperty( '$schema' ) ) {
                return condenseJsonSchemaRoot( contents );
             }
-            const rv = {};
+            var rv = {};
             Object.keys( contents ).forEach( function( key ) {
                rv[key] = condenseJson( contents[key] );
             } );
@@ -178,7 +178,7 @@ module.exports = function( grunt ) {
          if( type === '.json' ) {
             // Eliminate whitespace and "condense" json schemata
             try {
-               let data = JSON.parse( contents );
+               var data = JSON.parse( contents );
                if( opt.condenseJson ) {
                   data = condenseJson( data );
                }
