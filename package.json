@@ -53,7 +53,8 @@
       "portscanner": "^1.0.0",
       "q": "~1.0.0",
       "requirejs": "2.1.19",
-      "serve-index": "^1.7.3"
+      "serve-index": "^1.7.3",
+      "serve-static": "^1.10.2"
    },
    "peerDependencies": {
       "grunt": ">=0.4"
